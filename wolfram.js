@@ -1,4 +1,14 @@
+
 $(function() {
+  var rule_0 = false;
+  var rule_1 = false;
+  var rule_2 = false;
+  var rule_3 = false;
+  var rule_4 = false;
+  var rule_5 = false;
+  var rule_6 = false;
+  var rule_7 = false;
+
   function pixel( row, column )
   {
     return row * column * 4;
@@ -14,7 +24,14 @@ $(function() {
 
   function shouldReplicate( imageData, pixel )
   {
-    return imageData.data[ pixel + 3 ] == 255;
+    if ( rule_0 )
+    {
+      return imageData.data[ pixel + 3 ] == 255;
+    }
+    else
+    {
+      return imageData.data[ pixel - 1 ] == 255;
+    }
   }
 
 
@@ -38,6 +55,15 @@ $(function() {
     var height    = canvas.getAttribute('height');
     var context   = canvas.getContext("2d");
     var imageData = context.createImageData(width, height);
+
+    rule_0 = $('.rule_0').is(':checked');
+    rule_1 = $('.rule_1').is(':checked');
+    rule_2 = $('.rule_2').is(':checked');
+    rule_3 = $('.rule_3').is(':checked');
+    rule_4 = $('.rule_4').is(':checked');
+    rule_5 = $('.rule_5').is(':checked');
+    rule_6 = $('.rule_6').is(':checked');
+    rule_7 = $('.rule_7').is(':checked');
 
     imageData.data[width * 2 + 3] = 255;
     for ( var row = 1; row < height; row += 1 )
