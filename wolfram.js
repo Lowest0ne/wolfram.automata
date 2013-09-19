@@ -1,11 +1,26 @@
+function pixel( row, column )
+{
+  return row * column * 4;
+}
+
+function colorPixel( imageData, pixel )
+{
+  imageData.data[ pixel ] = 0;
+  imageData.data[ pixel + 1] = 0;
+  imageData.data[ pixel + 2] = 0;
+  imageData.data[ pixel + 3] = 255;
+}
+
+
 function colorRow( imageData, row, width )
 {
-  for ( var i = 0; i < width * 4; i += 4 )
+  actual_width = width * 4
+  for ( var i = 0; i < actual_width; i += 4 )
   {
-    imageData.data[ ( row * width * 4) + i + 0 ] = 0;
-    imageData.data[ ( row * width * 4) + i + 1 ] = 0;
-    imageData.data[ ( row * width * 4) + i + 2 ] = 0;
-    imageData.data[ ( row * width * 4) + i + 3 ] = 255;
+    if ( imageData.data[ pixel( row - 1, width )  + i + 3] == 0 )
+    {
+      colorPixel( imageData, pixel( row, width ) + i );
+    }
   }
 
 }
@@ -18,7 +33,8 @@ function makeWolfram()
   var context   = canvas.getContext("2d");
   var imageData = context.createImageData(width, height);
 
-  for ( var row = 0; row < height; row += 1 )
+  imageData.data[width * 2 + 3] = 255;
+  for ( var row = 1; row < height; row += 1 )
   {
     colorRow( imageData, row, width );
   }
