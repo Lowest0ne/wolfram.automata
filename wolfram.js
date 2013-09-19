@@ -1,12 +1,27 @@
-function evaluate()
+function colorRow( imageData, row, width )
 {
-  var doc = document.getElementById("wolfram");
-  var ctx=doc.getContext("2d");
-  ctx.fillStyle="#FF0000";
-  ctx.fillRect(0,0,150,75);
+  for ( var i = 0; i < width; i += 4 )
+  {
+    imageData.data[ ( row * width ) + i + 0 ] = 0;
+    imageData.data[ ( row * width ) + i + 1 ] = 0;
+    imageData.data[ ( row * width ) + i + 2 ] = 0;
+    imageData.data[ ( row * width ) + i + 3 ] = 255;
+  }
+
 }
 
 function makeWolfram()
 {
-  evaluate();
+  var canvas    = document.getElementById("wolfram");
+  var context   = canvas.getContext("2d");
+  var imageData = context.createImageData(100,100);
+  var width     = imageData.width;
+  var height    = imageData.height;
+
+  for ( var row = 0; row < height; row += 1 )
+  {
+    colorRow( imageData, row, width );
+  }
+
+  context.putImageData(imageData,10,10);
 }
