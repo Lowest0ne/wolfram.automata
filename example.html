@@ -16,4 +16,27 @@
 <canvas id="wolfram" width="1200" height="600" style="border: 1px solid black">
 </canvas>
 
-</body></html>
+<script>
+
+  $(".commander").click( function()
+  {
+    var canvas  = document.getElementById("wolfram");
+
+    var rule_array = [
+      $('.rule_0').is(':checked'),
+      $('.rule_1').is(':checked'),
+      $('.rule_2').is(':checked'),
+      $('.rule_3').is(':checked'),
+      $('.rule_4').is(':checked'),
+      $('.rule_5').is(':checked'),
+      $('.rule_6').is(':checked'),
+      $('.rule_7').is(':checked')
+    ];
+
+    makeWolfram( canvas, rule_array );
+  });
+</script>
+
+</body>
+
+</html>
