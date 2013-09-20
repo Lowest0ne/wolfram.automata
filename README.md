@@ -10,9 +10,9 @@ Draws celluar automation using JavaScript on an html canvas.
 
 ### What!?
 
-Check out (his site)[http://www.stephenwolfram.com/].
+Check out [his site](http://www.stephenwolfram.com/).
 
-Or to be (more specific)[http://www.stephenwolfram.com/interviews/99-dailytelegraph/cell.html].
+Or to be [more specific](http://www.stephenwolfram.com/interviews/99-dailytelegraph/cell.html).
 
 ### How
 
