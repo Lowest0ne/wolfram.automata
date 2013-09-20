@@ -19,16 +19,16 @@ $(function() {
 
   function pixelAt( row, offset )
   {
-    return ( row * width * 4 ) + offset;
+    return ( row * width * 4 ) + ( offset  );
   }
 
   function generateRule( pixel )
   {
     var result = 0;
 
-    result += ( image.data[ pixel + 3 ] ) ? 1 : 0;
-    result += ( image.data[ pixel - 1 ] ) ? 2 : 0;
-    result += ( image.data[ pixel + 7 ] ) ? 4 : 0;
+    result += ( image.data[ pixel + 7 ] ) ? 1 : 0;
+    result += ( image.data[ pixel + 3 ] ) ? 2 : 0;
+    result += ( image.data[ pixel - 1 ] ) ? 4 : 0;
 
     return result;
    }
