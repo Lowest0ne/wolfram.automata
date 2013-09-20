@@ -8,12 +8,12 @@ function CelluarAutomata( canvas_elem, rules ){
   this.rule_array = rules;
 }
 
-CelluarAutomata.prototype.do_it = function(){
+CelluarAutomata.prototype.run = function(){
   // seed the first row
   this.image.data[this.width * 2 + 3] = 255;
 
   // run the loops
-  this.celluarAutomata();
+  this.generate();
 
   this.context.putImageData(this.image,0,0);
 
@@ -21,10 +21,10 @@ CelluarAutomata.prototype.do_it = function(){
 
 CelluarAutomata.prototype.pixelAt = function( row, offset )
 {
-  return ( row * this.width * 4 ) + ( offset  );
+  return ( row * this.width * 4 ) + ( offset );
 };
 
-CelluarAutomata.prototype.generateRule = function( pixel )
+CelluarAutomata.prototype.currentRule = function( pixel )
 {
   var result = 0;
 
@@ -47,26 +47,19 @@ CelluarAutomata.prototype.colorRow = function( row )
   for ( var i = 0; i < this.width * 4; i += 4 )
   {
     // what is the combination from the last row?
-    result = this.generateRule( this.pixelAt( row - 1, i ) );
+    rule = this.currentRule( this.pixelAt( row - 1, i ) );
 
     // apply the selected color to the current pixel
     // pixels are zero (RGBA) by default, we only need 0xFF alpha
-      this.image.data[ this.pixelAt( row, i ) + 3 ] = this.genColor( this.rule_array[ result ]);
+    this.image.data[ this.pixelAt( row, i ) + 3 ] =
+      this.genColor( this.rule_array[ rule ] );
   }
 };
 
-CelluarAutomata.prototype.celluarAutomata = function()
+CelluarAutomata.prototype.generate = function()
 {
   for (var row = 1; row < this.height; row += 1 )
   {
     this.colorRow( row );
   }
 };
-
-function makeWolfram(canvas_elem, rule_array_arg)
-{
-  automata = new CelluarAutomata( canvas_elem, rule_array_arg );
-  automata.do_it();
-}
-
-

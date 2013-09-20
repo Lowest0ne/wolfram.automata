@@ -32,8 +32,8 @@
       $('.rule_6').is(':checked'),
       $('.rule_7').is(':checked')
     ];
-
-    makeWolfram( canvas, rule_array );
+    automata = new CelluarAutomata( canvas, rule_array );
+    automata.run();
   });
 </script>
 
