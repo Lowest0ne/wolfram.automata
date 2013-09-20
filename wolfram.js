@@ -16,33 +16,84 @@ $(function() {
 
   function colorPixel( imageData, pixel )
   {
-    imageData.data[ pixel ]    = 0;
-    imageData.data[ pixel + 1] = 0;
-    imageData.data[ pixel + 2] = 0;
     imageData.data[ pixel + 3] = 255;
   }
 
   function shouldReplicate( imageData, pixel )
   {
-    if ( rule_0 )
+    var result = 0;
+    if ( imageData.data[ pixel + 3 ] == 255 )
     {
-      return imageData.data[ pixel + 3 ] == 255;
+      result += 1;
     }
-    else
+    if ( imageData.data[ pixel - 1 ] == 255 )
     {
-      return imageData.data[ pixel - 1 ] == 255;
+      result += 2;
     }
-  }
+    if ( imageData.data[ pixel + 7 ] == 255 )
+    {
+      result += 4;
+    }
 
+    return result;
+
+}
 
   function colorRow( imageData, row, width )
   {
     actual_width = width * 4;
     for ( var i = 0; i < actual_width; i += 4 )
     {
-      if ( shouldReplicate( imageData, pixel( row - 1, width )  + i) )
+      switch (shouldReplicate( imageData, pixel( row - 1, width )  + i))
       {
-        colorPixel( imageData, pixel( row, width ) + i );
+        case 0:
+          if ( rule_0 )
+          {
+            colorPixel( imageData, pixel( row, width ) + i );
+          }
+          break;
+        case 1:
+          if ( rule_1 )
+          {
+            colorPixel( imageData, pixel( row, width ) + i );
+          }
+          break;
+        case 2:
+          if ( rule_2 )
+          {
+            colorPixel( imageData, pixel( row, width ) + i );
+          }
+          break;
+        case 3:
+          if ( rule_3 )
+          {
+            colorPixel( imageData, pixel( row, width ) + i );
+          }
+          break;
+        case 4:
+          if ( rule_4 )
+          {
+            colorPixel( imageData, pixel( row, width ) + i );
+          }
+          break;
+        case 5:
+          if ( rule_5 )
+          {
+            colorPixel( imageData, pixel( row, width ) + i );
+          }
+          break;
+        case 6:
+          if ( rule_6 )
+          {
+            colorPixel( imageData, pixel( row, width ) + i );
+          }
+          break;
+        case 7:
+          if ( rule_7 )
+          {
+            colorPixel( imageData, pixel( row, width ) + i );
+          }
+          break;
       }
     }
 
@@ -74,7 +125,7 @@ $(function() {
     context.putImageData(imageData,0,0);
   }
 
-  $(".wolfram_button").click(makeWolfram );
+  $(".commander").click(makeWolfram );
 
 
 
